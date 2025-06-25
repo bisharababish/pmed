@@ -1,13 +1,16 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Mail, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Link } from "react-router-dom";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 
 const Index = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [bounce, setBounce] = useState(false);
 
   const userCategories = [
     {
@@ -15,261 +18,228 @@ const Index = () => {
       description: "Foundation learning for aspiring medical professionals",
       number: "1"
     },
-    {
-      title: "Clinical Medical Students",
-      description: "Advanced clinical training and practical experience",
-      number: "2"
-    },
-    {
-      title: "Graduates",
-      description: "Recent graduates transitioning to practice",
-      number: "3"
-    },
-    {
-      title: "Doctors/Specialists",
-      description: "Continuing education for practicing professionals",
-      number: "4"
-    },
-    {
-      title: "Other Contributors",
-      description: "Researchers, educators, and healthcare professionals",
-      number: "5"
-    }
+
   ];
+
+  useEffect(() => {
+    // Set the countdown target to 56 days from now
+    const target = new Date();
+    target.setDate(target.getDate() + 56);
+
+    const updateCountdown = () => {
+      const now = new Date();
+      const diff = target.getTime() - now.getTime();
+      if (diff <= 0) {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        return;
+      }
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      setTimeLeft(prev => {
+        if (prev.seconds !== seconds) {
+          setBounce(true);
+        }
+        return { days, hours, minutes, seconds };
+      });
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (bounce) {
+      const timeout = setTimeout(() => setBounce(false), 400);
+      return () => clearTimeout(timeout);
+    }
+  }, [bounce]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
-      {/* Header */}
-      <header className="bg-white shadow-md sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-                <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center">
-                  <div className="w-3 h-3 bg-blue-600 rounded-full"></div>
-                </div>
-              </div>
-              <span className="text-xl font-bold text-gray-900">MedLife</span>
-            </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center space-x-8">
-              <a href="#" className="text-blue-600 font-medium hover:text-blue-700 transition-colors">
-                Home
-              </a>
-              <div className="relative group">
-                <button className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
-                  Be a Member
-                </button>
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
-                  <div className="py-2">
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">
-                      Assist Us
-                    </a>
-                    <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600">
-                      Member Interest Group
-                    </a>
-                  </div>
-                </div>
-              </div>
-              <a href="#" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
-                Our Team
-              </a>
-              <a href="#contact" className="text-gray-700 hover:text-blue-600 transition-colors font-medium">
-                Contact Us
-              </a>
-            </nav>
+      {/* Header - Logo and Title Side by Side, Centered */}
+      <header className="bg-white shadow-md w-full">
+        <div className="max-w-7xl mx-auto flex flex-row items-center justify-between pt-6 pb-2 px-4 relative">
+          {/* Logo on the far left */}
+          <div className="flex-shrink-0 flex items-center justify-start w-1/4 min-w-[180px]">
+            <img src="/favicon.ico" alt="PMED Logo" className="h-32 w-52 object-contain" />
 
-            {/* Mobile menu button */}
-            <button
-              className="md:hidden p-2"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
-
-          {/* Mobile Navigation */}
-          {isMenuOpen && (
-            <div className="md:hidden py-4 border-t">
-              <div className="flex flex-col space-y-3">
-                <a href="#" className="text-blue-600 font-medium">
-                  Home
-                </a>
-                <div className="pl-4 space-y-2">
-                  <p className="text-gray-700 font-medium">Be a Member</p>
-                  <a href="#" className="block text-sm text-gray-600 hover:text-blue-600">
-                    Assist Us
-                  </a>
-                  <a href="#" className="block text-sm text-gray-600 hover:text-blue-600">
-                    Member Interest Group
-                  </a>
-                </div>
-                <a href="#" className="text-gray-700 hover:text-blue-600 font-medium">
-                  Our Team
-                </a>
-                <a href="#contact" className="text-gray-700 hover:text-blue-600 font-medium">
-                  Contact Us
-                </a>
-              </div>
-            </div>
-          )}
+          {/* Navbar on the far right - desktop */}
+          <nav className="hidden md:flex flex gap-3 justify-end items-center w-1/4 min-w-[200px] whitespace-nowrap">
+            <a href="#" className="px-5 py-2 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">Home</a>
+            <a href="#" className="px-5 py-2 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">About</a>
+            <a href="#" className="px-5 py-2 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">News</a>
+            <a href="#" className="px-5 py-2 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">Divisions</a>
+            <a href="#" className="px-5 py-2 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">Our Teams</a>
+            <a href="/contact" className="px-5 py-2 bg-[#092952] hover:bg-[#0b387a] text-white font-semibold rounded shadow transition">Contact Us</a>
+          </nav>
+          {/* Hamburger for mobile */}
+          <button
+            className="md:hidden absolute right-4 top-1/2 -translate-y-1/2 p-2 z-20"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Open menu"
+          >
+            {isMenuOpen ? <X size={32} /> : <Menu size={32} />}
+          </button>
         </div>
+        {/* Mobile Navbar */}
+        {isMenuOpen && (
+          <nav className="md:hidden flex flex-col gap-2 px-6 pb-4 bg-white shadow-lg animate-fade-in">
+            <a href="#" className="px-5 py-3 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">Home</a>
+            <a href="#" className="px-5 py-3 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">About</a>
+            <a href="#" className="px-5 py-3 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">News</a>
+            <a href="#" className="px-5 py-3 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">Divisions</a>
+            <a href="#" className="px-5 py-3 bg-[#092952] text-white font-semibold rounded shadow hover:bg-[#0b387a] transition">Our Teams</a>
+            <a href="/contact" className="px-5 py-3 bg-[#092952] hover:bg-[#0b387a] text-white font-semibold rounded shadow transition">Contact Us</a>
+          </nav>
+        )}
       </header>
 
-      {/* Hero Section */}
-      <section className="py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-            NOT JUST LEARNING
-            <br />
-            <span className="text-blue-600">MEDICINE, LIVING IT!</span>
-          </h1>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Join our community of medical professionals and students dedicated to excellence in healthcare education and practice.
-          </p>
+      {/* Hero/Banner Section - Blue Slideshow */}
+      <section className="relative py-12 px-2 md:px-0 bg-[#092952] min-h-[420px] flex items-center justify-center overflow-hidden">
+        <div className="relative z-10 w-full max-w-4xl mx-auto">
+          <Carousel>
+            <CarouselContent>
+              {/* Second Slide: Countdown with iff.png background */}
+              <CarouselItem>
+                <div className="relative w-full h-[600px] flex items-center justify-center">
+                  {/* Background image only for this slide */}
+                  <img src="/iff.png" alt="Background" className="absolute inset-0 w-full h-full object-contain bg-[#092952] z-0" />
+                  <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-4">
+                    <span className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-white text-center drop-shadow-lg max-w-4xl transition-all duration-300 select-none">
+                      International Palestinian Conference for Laboratory Medicine
+                    </span>
+                    <div className="text-xl md:text-3xl font-bold text-white mb-6 text-center drop-shadow-lg transition-all duration-300 select-none">
+                      August 21st - 23rd, 2025
+                    </div>
+                    <div className="flex flex-row items-end justify-center gap-4 w-full mt-2 transition-all duration-300 select-none">
+                      {/* Countdown Timer */}
+                      <div className="flex flex-col items-center select-none">
+                        <div className="rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center drop-shadow-lg bg-transparent transition-all duration-300 select-none">
+                          {timeLeft.days}
+                        </div>
+                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow transition-all duration-300 select-none">Days</span>
+                      </div>
+                      <span className="text-2xl md:text-3xl font-bold text-white drop-shadow transition-all duration-300 select-none">:</span>
+                      <div className="flex flex-col items-center select-none">
+                        <div className="rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center drop-shadow-lg bg-transparent transition-all duration-300 select-none">
+                          {timeLeft.hours}
+                        </div>
+                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow transition-all duration-300 select-none">Hours</span>
+                      </div>
+                      <span className="text-2xl md:text-3xl font-bold text-white drop-shadow transition-all duration-300 select-none">:</span>
+                      <div className="flex flex-col items-center select-none">
+                        <div className="rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center drop-shadow-lg bg-transparent transition-all duration-300 select-none">
+                          {timeLeft.minutes}
+                        </div>
+                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow transition-all duration-300 select-none">Minutes</span>
+                      </div>
+                      <span className="text-2xl md:text-3xl font-bold text-white drop-shadow transition-all duration-300 select-none">:</span>
+                      <div className="flex flex-col items-center select-none">
+                        <div className={`rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center drop-shadow-lg bg-transparent transition-transform duration-300 select-none ${bounce ? 'animate-bounce' : ''}`}>
+                          {timeLeft.seconds}
+                        </div>
+                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow transition-all duration-300 select-none">Seconds</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+              <CarouselItem>
+                <div className="bg-[#0b387a] bg-opacity-90 rounded-xl shadow-2xl w-full mx-2 p-8 flex flex-col items-center border-4 border-[#092952]">
+                  <span className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-white text-center">
+                    Welcome to PMED
+                  </span>
+                  <div className="text-2xl md:text-3xl font-bold text-blue-100 mb-1 text-center">
+                    Palestine Medical Club
+                  </div>
+                  <div className="flex items-center justify-center w-full mt-4">
+                    <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tight text-center">
+                      EMPOWERING <span className="text-blue-200">MEDICAL EXCELLENCE</span>
+                    </span>
+                  </div>
+                </div>
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
       </section>
 
-      {/* User Categories Section */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8">
+      {/* User Categories Section - Enhanced for PMED Theme */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#f4f8fc]">
         <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
             {userCategories.map((category, index) => (
-              <Card key={index} className="group hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-0 shadow-md">
-                <CardContent className="p-6 text-center">
-                  <div className="w-12 h-12 bg-blue-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-blue-700 transition-colors">
-                    <span className="text-xl font-bold">{category.number}</span>
-                  </div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
-                    {category.title}
-                  </h3>
-                  <p className="text-sm text-gray-600">
-                    {category.description}
-                  </p>
-                </CardContent>
-              </Card>
+              <Link
+                key={index}
+                to={
+                  category.number === "1"
+                    ? "/basic-medical-students"
+                    : category.number === "2"
+                      ? "/clinical-medical-students"
+                      : category.number === "3"
+                        ? "/graduates"
+                        : category.number === "4"
+                          ? "/doctors-specialists"
+                          : "/other-contributors"
+                }
+                className="group hover:no-underline"
+              >
+                <Card className={
+                  `transition-all duration-300 border-2 shadow-lg rounded-xl bg-white hover:border-[#092952] hover:shadow-2xl hover:-translate-y-1 flex flex-col items-center px-6 py-8 ${index === 0 ? 'border-[#092952]' : 'border-transparent'}`
+                }>
+                  <CardContent className="flex flex-col items-center">
+                    <div className="w-14 h-14 bg-[#092952] text-white rounded-full flex items-center justify-center mb-4 text-2xl font-bold shadow-md group-hover:bg-[#0b387a] transition-colors">
+                      {category.number}
+                    </div>
+                    <h3 className="text-xl font-extrabold text-gray-900 mb-2 group-hover:text-[#092952] transition-colors">
+                      {category.title}
+                    </h3>
+                    <p className="text-base text-gray-600 text-center group-hover:text-[#092952] transition-colors">
+                      {category.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section id="contact" className="py-16 px-4 sm:px-6 lg:px-8 bg-white">
-        <div className="max-w-4xl mx-auto">
-          <Card className="shadow-xl border-0">
-            <CardContent className="p-8">
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                  Form: Any Inquiries or Suggestions
-                </h2>
-                <p className="text-gray-600">
-                  We'd love to hear from you. Send us a message and we'll respond as soon as possible.
-                </p>
-              </div>
-
-              <form className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      First Name
-                    </label>
-                    <Input placeholder="Enter your first name" className="w-full" />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Last Name
-                    </label>
-                    <Input placeholder="Enter your last name" className="w-full" />
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address
-                  </label>
-                  <Input type="email" placeholder="Enter your email" className="w-full" />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Subject
-                  </label>
-                  <Input placeholder="What is this regarding?" className="w-full" />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Message
-                  </label>
-                  <Textarea 
-                    placeholder="Tell us more about your inquiry or suggestion..."
-                    className="w-full min-h-[120px]"
-                  />
-                </div>
-
-                <div className="text-center">
-                  <Button className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 text-lg font-medium">
-                    Send Message
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
+      {/* Video Section - below User Categories */}
+      <section className="flex justify-center items-center py-12 px-4 bg-[#f4f8fc]">
+        <div className="w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden">
+          <video
+            src="/IMG_8004.MOV"
+            autoPlay
+            loop
+            controls
+            playsInline
+            className="w-full h-[400px] md:h-[600px] object-contain bg-black"
+            style={{ maxHeight: '80vh', maxWidth: '100%' }}
+          />
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div>
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                  <div className="w-4 h-4 bg-white rounded-sm flex items-center justify-center">
-                    <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
-                  </div>
-                </div>
-                <span className="text-lg font-bold">MedLife</span>
-              </div>
-              <p className="text-gray-400">
-                Empowering medical professionals through community-driven learning and excellence.
-              </p>
+      <footer className="bg-gray-900 text-white py-10 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start md:space-x-8 text-center md:text-left">
+          <img src="/favicon.ico" alt="PMED Logo" className="w-36 h-36 rounded-full border-4 border-white mb-4 md:mb-0" />
+          <div className="flex-1">
+            <h2 className="text-3xl font-bold mb-2">PMED - Palestine Medical Club</h2>
+            <div className="mb-2 text-lg">All Rights Reserved © PMED 2025</div>
+            <div className="mt-2">
+              <span className="font-medium">Quick Links:</span>
+              <a href="#" className="ml-2 underline hover:text-blue-300">Home</a>
+              <a href="#" className="ml-4 underline hover:text-blue-300">Our Team</a>
+              <a href="#contact" className="ml-4 underline hover:text-blue-300">Contact Us</a>
             </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-              <div className="space-y-2">
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">Home</a>
-                <a href="#" className="block text-gray-400 hover:text-white transition-colors">Our Team</a>
-                <a href="#contact" className="block text-gray-400 hover:text-white transition-colors">Contact Us</a>
-              </div>
-            </div>
-
-            <div>
-              <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
-              <div className="space-y-3">
-                <div className="flex items-center space-x-3">
-                  <Mail size={16} className="text-blue-400" />
-                  <span className="text-gray-400">info@medlife.com</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <Phone size={16} className="text-blue-400" />
-                  <span className="text-gray-400">+1 (555) 123-4567</span>
-                </div>
-                <div className="flex items-center space-x-3">
-                  <MapPin size={16} className="text-blue-400" />
-                  <span className="text-gray-400">Medical District, Healthcare Ave</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-            <p className="text-gray-400">
-              © 2024 MedLife. All rights reserved.
-            </p>
           </div>
         </div>
       </footer>
