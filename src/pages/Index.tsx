@@ -58,10 +58,12 @@ const Index = () => {
   }, [bounce]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-white">
+    <div className="min-h-screen relative">
+      {/* Global background image */}
+      <img src="/5.png" alt="Background" className="fixed inset-0 w-full h-full object-cover z-0 pointer-events-none select-none" style={{ minHeight: '100vh', minWidth: '100vw' }} />
 
       {/* Header - Logo and Title Side by Side, Centered */}
-      <header className="bg-white shadow-md w-full">
+      <header className="bg-white shadow-md w-full relative z-10">
         <div className="max-w-7xl mx-auto flex flex-row items-center justify-between pt-6 pb-2 px-4 relative">
           {/* Logo on the far left */}
           <div className="flex-shrink-0 flex items-center justify-start w-1/4 min-w-[180px]">
@@ -100,7 +102,7 @@ const Index = () => {
       </header>
 
       {/* Hero/Banner Section - Blue Slideshow */}
-      <section className="relative py-12 px-2 md:px-0 bg-[#092952] min-h-[420px] flex items-center justify-center overflow-hidden">
+      <section className="relative py-12 px-2 md:px-0 bg-[#092952] min-h-[420px] flex items-center justify-center overflow-hidden z-10">
         <div className="relative z-10 w-full max-w-4xl mx-auto">
           <Carousel>
             <CarouselContent>
@@ -150,29 +152,44 @@ const Index = () => {
                 </div>
               </CarouselItem>
               <CarouselItem>
-                <div className="bg-[#0b387a] bg-opacity-90 rounded-xl shadow-2xl w-full mx-2 p-8 flex flex-col items-center border-4 border-[#092952]">
-                  <span className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-white text-center">
-                    Welcome to PMED
-                  </span>
-                  <div className="text-2xl md:text-3xl font-bold text-blue-100 mb-1 text-center">
-                    Palestine Medical Club
-                  </div>
-                  <div className="flex items-center justify-center w-full mt-4">
-                    <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tight text-center">
-                      EMPOWERING <span className="text-blue-200">MEDICAL EXCELLENCE</span>
+                <div className="relative w-full h-full flex flex-col items-center justify-center min-h-0 min-w-0">
+                  {/* Slide-specific background image, fit entire slide */}
+                  <img src="/5.png" alt="Welcome background" className="absolute top-0 left-0 right-0 bottom-0 w-full h-full object-cover z-0 opacity-95 select-none pointer-events-none" style={{ objectPosition: 'center center' }} />
+                  <div className="relative z-10 flex flex-col items-center w-full h-full justify-center mt-8">
+                    <span className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-white text-center select-none drop-shadow-lg">
+                      Welcome to PMED
                     </span>
+                    <div className="text-2xl md:text-3xl font-bold text-blue-100 mb-6 text-center select-none drop-shadow-lg">
+                      Palestine Medical Education & Development Club
+                    </div>
+                    <div className="flex items-center justify-center w-full mt-4">
+                      <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tight text-center select-none drop-shadow-lg">
+                        EMPOWERING <span className="text-blue-200">MEDICAL EXCELLENCE</span>
+                      </span>
+                    </div>
+                    {/* Images row */}
+                    <div className="flex flex-row flex-wrap justify-center items-center gap-4 mt-8 w-full relative z-10">
+                      {[1, 2, 3, 4].map(num => (
+                        <img
+                          key={num}
+                          src={`/${num}.png`}
+                          alt={`PMED ${num}`}
+                          className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white"
+                        />
+                      ))}
+                    </div>
                   </div>
                 </div>
               </CarouselItem>
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            <CarouselPrevious className="!w-14 !h-14 !bg-white !text-[#092952] !shadow-2xl !border-2 !border-[#092952] !z-20 hover:!bg-[#092952] hover:!text-white transition-all duration-300 !left-4 !-translate-y-1/2 top-1/2" />
+            <CarouselNext className="!w-14 !h-14 !bg-white !text-[#092952] !shadow-2xl !border-2 !border-[#092952] !z-20 hover:!bg-[#092952] hover:!text-white transition-all duration-300 !right-4 !-translate-y-1/2 top-1/2" />
           </Carousel>
         </div>
       </section>
 
       {/* User Categories Section - Enhanced for PMED Theme */}
-      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#f4f8fc]">
+      <section className="py-16 px-4 sm:px-6 lg:px-8 bg-[#f4f8fc] relative z-10">
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-8">
             {userCategories.map((category, index) => (
@@ -213,7 +230,7 @@ const Index = () => {
       </section>
 
       {/* Video Section - below User Categories */}
-      <section className="flex justify-center items-center py-12 px-4 bg-[#f4f8fc]">
+      <section className="flex justify-center items-center py-12 px-4 bg-[#f4f8fc] relative z-10">
         <div className="w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden">
           <video
             src="/IMG_8004.MOV"
@@ -228,7 +245,7 @@ const Index = () => {
       </section>
 
       {/* Footer */}
-      <footer className="bg-gray-900 text-white py-10 px-4 sm:px-6 lg:px-8">
+      <footer className="bg-gray-900 text-white py-10 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start md:space-x-8 text-center md:text-left">
           <img src="/favicon.ico" alt="PMED Logo" className="w-36 h-36 rounded-full border-4 border-white mb-4 md:mb-0" />
           <div className="flex-1">
