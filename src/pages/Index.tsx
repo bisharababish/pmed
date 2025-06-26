@@ -102,8 +102,8 @@ const Index = () => {
       </header>
 
       {/* Hero/Banner Section - Blue Slideshow */}
-      <section className="relative py-12 px-2 md:px-0 bg-[#092952] min-h-[420px] flex items-center justify-center overflow-hidden z-10">
-        <div className="relative z-10 w-full max-w-4xl mx-auto">
+      <section className="relative md:px-0 bg-[#092952] min-h-[420px] flex items-center justify-center overflow-hidden z-10">
+        <div className="relative z-10 w-full">
           <Carousel>
             <CarouselContent>
               {/* Welcome to PMED Slide - now first */}
@@ -141,53 +141,61 @@ const Index = () => {
               {/* Countdown Slide - now second */}
               <CarouselItem>
                 <div className="relative w-full h-[600px] flex flex-col items-center justify-center bg-[#092952] overflow-hidden text-center">
-                  {/* Background Image */}
-                  <img src="/iff.png" alt="Background" className="absolute inset-0 w-full h-full object-contain z-0" />
-                  {/* Vignette Overlay */}
-                  <div className="absolute inset-0 w-full h-full [background:radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.8))] z-10" />
+                  {/* Blurred Background */}
+                  <img src="/iff.png" alt="Background" className="absolute inset-0 w-full h-full object-cover z-0 blur-md scale-105" />
+                  <div className="absolute inset-0 w-full h-full bg-black/50 z-10" />
 
                   {/* Content */}
-                  <div className="relative z-20 flex flex-col items-center justify-center w-full px-4">
-                    <span
-                      className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-white text-center max-w-4xl transition-all duration-300 select-none"
-                      style={{ textShadow: '0 4px 25px rgba(0,0,0,1)' }}
-                    >
-                      International Palestinian Conference for Laboratory Medicine
-                    </span>
-                    <div
-                      className="text-xl md:text-3xl font-bold text-white mb-6 text-center transition-all duration-300 select-none"
-                      style={{ textShadow: '0 2px 15px rgba(0,0,0,1)' }}
-                    >
-                      August 21st - 23rd, 2025
+                  <div className="relative z-20 flex flex-col items-center justify-center w-full h-full px-4 py-8">
+                    {/* Text Content */}
+                    <div className="text-center mb-6">
+                      <h3
+                        className="text-3xl md:text-4xl font-extrabold text-white"
+                        style={{ textShadow: '0 3px 15px rgba(0,0,0,0.8)' }}
+                      >
+                        International Palestinian Conference for Laboratory Medicine
+                      </h3>
+                      <p
+                        className="text-lg md:text-xl text-blue-100 mt-2"
+                        style={{ textShadow: '0 2px 10px rgba(0,0,0,0.7)' }}
+                      >
+                        August 21st - 23rd, 2025
+                      </p>
                     </div>
-                    <div className="flex flex-row items-end justify-center gap-4 w-full mt-2 transition-all duration-300 select-none">
-                      {/* Countdown Timer */}
+                    {/* Framed Poster */}
+                    <img
+                      src="/iff.png"
+                      alt="Conference Poster"
+                      className="max-h-[50%] w-auto object-contain rounded-2xl shadow-2xl border-4 border-white/20"
+                    />
+                    {/* Countdown Timer */}
+                    <div className="flex flex-row items-end justify-center gap-4 w-full mt-8 transition-all duration-300 select-none">
                       <div className="flex flex-col items-center select-none">
-                        <div className="rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center drop-shadow-lg bg-transparent transition-all duration-300 select-none">
+                        <div className="rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
                           {timeLeft.days}
                         </div>
-                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow transition-all duration-300 select-none">Days</span>
+                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow-lg">Days</span>
                       </div>
-                      <span className="text-2xl md:text-3xl font-bold text-white drop-shadow transition-all duration-300 select-none">:</span>
+                      <span className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">:</span>
                       <div className="flex flex-col items-center select-none">
-                        <div className="rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center drop-shadow-lg bg-transparent transition-all duration-300 select-none">
+                        <div className="rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
                           {timeLeft.hours}
                         </div>
-                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow transition-all duration-300 select-none">Hours</span>
+                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow-lg">Hours</span>
                       </div>
-                      <span className="text-2xl md:text-3xl font-bold text-white drop-shadow transition-all duration-300 select-none">:</span>
+                      <span className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">:</span>
                       <div className="flex flex-col items-center select-none">
-                        <div className="rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center drop-shadow-lg bg-transparent transition-all duration-300 select-none">
+                        <div className="rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
                           {timeLeft.minutes}
                         </div>
-                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow transition-all duration-300 select-none">Minutes</span>
+                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow-lg">Minutes</span>
                       </div>
-                      <span className="text-2xl md:text-3xl font-bold text-white drop-shadow transition-all duration-300 select-none">:</span>
+                      <span className="text-2xl md:text-3xl font-bold text-white drop-shadow-lg">:</span>
                       <div className="flex flex-col items-center select-none">
-                        <div className={`rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center drop-shadow-lg bg-transparent transition-transform duration-300 select-none ${bounce ? 'animate-bounce' : ''}`}>
+                        <div className={`rounded p-2 text-2xl md:text-3xl font-bold text-white min-w-[48px] md:min-w-[60px] text-center transition-transform duration-300 ${bounce ? 'animate-bounce' : ''}`} style={{ textShadow: '0 2px 8px rgba(0,0,0,0.7)' }}>
                           {timeLeft.seconds}
                         </div>
-                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow transition-all duration-300 select-none">Seconds</span>
+                        <span className="text-white text-xs md:text-sm font-semibold mt-1 drop-shadow-lg">Seconds</span>
                       </div>
                     </div>
                   </div>
