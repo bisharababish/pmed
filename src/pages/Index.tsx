@@ -264,21 +264,6 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Video Section - below User Categories */}
-      <section className="flex justify-center items-center py-12 px-4 bg-[#f4f8fc] relative z-10">
-        <div className="w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden">
-          <video
-            src="/IMG_8004.MOV"
-            autoPlay
-            loop
-            controls
-            playsInline
-            className="w-full h-[400px] md:h-[600px] object-contain bg-black"
-            style={{ maxHeight: '80vh', maxWidth: '100%' }}
-          />
-        </div>
-      </section>
-
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-10 px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center md:items-start md:space-x-8 text-center md:text-left">
