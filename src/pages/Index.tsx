@@ -106,16 +106,58 @@ const Index = () => {
         <div className="relative z-10 w-full max-w-4xl mx-auto">
           <Carousel>
             <CarouselContent>
-              {/* Second Slide: Countdown with iff.png background */}
+              {/* Welcome to PMED Slide - now first */}
               <CarouselItem>
-                <div className="relative w-full h-[600px] flex items-center justify-center">
-                  {/* Background image only for this slide */}
-                  <img src="/iff.png" alt="Background" className="absolute inset-0 w-full h-full object-contain bg-[#092952] z-0" />
-                  <div className="relative z-10 flex flex-col items-center justify-center w-full h-full px-4">
-                    <span className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-white text-center drop-shadow-lg max-w-4xl transition-all duration-300 select-none">
+                <div className="relative w-full h-full flex flex-col items-center justify-center min-h-0 min-w-0 overflow-hidden">
+                  <img src="/5.png" alt="Welcome background" className="absolute top-0 left-0 right-0 bottom-0 w-full h-full object-cover z-0 opacity-90 select-none pointer-events-none blur-md scale-105" />
+                  <div className="absolute top-0 left-0 w-full h-full z-10 bg-[#092952]/60" />
+                  <div className="relative z-20 flex flex-col items-center w-full h-full justify-center mt-8">
+                    <span className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-white text-center select-none drop-shadow-lg animate-fade-up bg-white/10 px-6 py-2 rounded-2xl shadow-2xl backdrop-blur-md" style={{ animationDelay: '0.1s' }}>
+                      Welcome to PMED
+                    </span>
+                    <div className="text-2xl md:text-3xl font-bold text-blue-100 mb-6 text-center select-none drop-shadow-lg animate-fade-up bg-white/10 px-4 py-1 rounded-xl shadow-lg backdrop-blur-md" style={{ animationDelay: '0.2s' }}>
+                      Palestine Medical Education & Development Club
+                    </div>
+                    <div className="flex items-center justify-center w-full mt-4 animate-fade-up" style={{ animationDelay: '0.3s' }}>
+                      <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tight text-center select-none drop-shadow-lg">
+                        EMPOWERING <span className="text-blue-200">MEDICAL EXCELLENCE</span>
+                      </span>
+                    </div>
+                    {/* Images row */}
+                    <div className="flex flex-row flex-wrap justify-center items-center gap-6 mt-10 w-full relative z-10 animate-fade-up" style={{ animationDelay: '0.4s' }}>
+                      {[1, 2, 3, 4].map(num => (
+                        <img
+                          key={num}
+                          src={`/${num}.png`}
+                          alt={`PMED ${num}`}
+                          className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-3xl shadow-3d border-4 border-white/70 transition-all duration-300 hover:scale-110 hover:shadow-[0_0_32px_0_rgba(30,64,175,0.25)] hover:border-blue-300/80 hover:ring-4 hover:ring-blue-200/40 bg-white"
+                          style={{ boxShadow: '0 8px 32px 0 rgba(30, 64, 175, 0.18), 0 1.5px 8px 0 rgba(30, 64, 175, 0.10)' }}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+              {/* Countdown Slide - now second */}
+              <CarouselItem>
+                <div className="relative w-full h-[600px] flex flex-col items-center justify-center bg-[#092952] overflow-hidden text-center">
+                  {/* Background Image */}
+                  <img src="/iff.png" alt="Background" className="absolute inset-0 w-full h-full object-contain z-0" />
+                  {/* Vignette Overlay */}
+                  <div className="absolute inset-0 w-full h-full [background:radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.8))] z-10" />
+
+                  {/* Content */}
+                  <div className="relative z-20 flex flex-col items-center justify-center w-full px-4">
+                    <span
+                      className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-white text-center max-w-4xl transition-all duration-300 select-none"
+                      style={{ textShadow: '0 4px 25px rgba(0,0,0,1)' }}
+                    >
                       International Palestinian Conference for Laboratory Medicine
                     </span>
-                    <div className="text-xl md:text-3xl font-bold text-white mb-6 text-center drop-shadow-lg transition-all duration-300 select-none">
+                    <div
+                      className="text-xl md:text-3xl font-bold text-white mb-6 text-center transition-all duration-300 select-none"
+                      style={{ textShadow: '0 2px 15px rgba(0,0,0,1)' }}
+                    >
                       August 21st - 23rd, 2025
                     </div>
                     <div className="flex flex-row items-end justify-center gap-4 w-full mt-2 transition-all duration-300 select-none">
@@ -151,39 +193,24 @@ const Index = () => {
                   </div>
                 </div>
               </CarouselItem>
+              {/* 6.png Slide - now third */}
               <CarouselItem>
-                <div className="relative w-full h-full flex flex-col items-center justify-center min-h-0 min-w-0">
-                  {/* Slide-specific background image, fit entire slide */}
-                  <img src="/5.png" alt="Welcome background" className="absolute top-0 left-0 right-0 bottom-0 w-full h-full object-cover z-0 opacity-95 select-none pointer-events-none" style={{ objectPosition: 'center center' }} />
-                  <div className="relative z-10 flex flex-col items-center w-full h-full justify-center mt-8">
-                    <span className="text-4xl md:text-5xl font-extrabold tracking-tight mb-2 text-white text-center select-none drop-shadow-lg">
-                      Welcome to PMED
-                    </span>
-                    <div className="text-2xl md:text-3xl font-bold text-blue-100 mb-6 text-center select-none drop-shadow-lg">
-                      Palestine Medical Education & Development Club
-                    </div>
-                    <div className="flex items-center justify-center w-full mt-4">
-                      <span className="text-2xl md:text-3xl font-extrabold text-white tracking-tight text-center select-none drop-shadow-lg">
-                        EMPOWERING <span className="text-blue-200">MEDICAL EXCELLENCE</span>
-                      </span>
-                    </div>
-                    {/* Images row */}
-                    <div className="flex flex-row flex-wrap justify-center items-center gap-4 mt-8 w-full relative z-10">
-                      {[1, 2, 3, 4].map(num => (
-                        <img
-                          key={num}
-                          src={`/${num}.png`}
-                          alt={`PMED ${num}`}
-                          className="w-32 h-32 md:w-40 md:h-40 object-cover rounded-xl shadow-lg transition-transform duration-300 hover:scale-105 hover:shadow-2xl bg-white"
-                        />
-                      ))}
-                    </div>
-                  </div>
+                <div className="relative w-full h-[600px] flex items-center justify-center overflow-hidden bg-[#092952]">
+                  {/* Blurred Background */}
+                  <img src="/6.png" alt="PMED Highlight Background" className="absolute inset-0 w-full h-full object-cover z-0 select-none pointer-events-none blur-lg scale-110" />
+                  <div className="absolute inset-0 w-full h-full bg-black/50 z-10" />
+
+                  {/* Framed Image */}
+                  <img
+                    src="/6.png"
+                    alt="PMED Highlight"
+                    className="relative z-20 h-[85%] w-auto object-contain rounded-2xl shadow-2xl border-4 border-white/20"
+                  />
                 </div>
               </CarouselItem>
             </CarouselContent>
-            <CarouselPrevious className="!w-14 !h-14 !bg-white !text-[#092952] !shadow-2xl !border-2 !border-[#092952] !z-20 hover:!bg-[#092952] hover:!text-white transition-all duration-300 !left-4 !-translate-y-1/2 top-1/2" />
-            <CarouselNext className="!w-14 !h-14 !bg-white !text-[#092952] !shadow-2xl !border-2 !border-[#092952] !z-20 hover:!bg-[#092952] hover:!text-white transition-all duration-300 !right-4 !-translate-y-1/2 top-1/2" />
+            <CarouselPrevious className="!w-14 !h-14 !bg-white/60 !backdrop-blur-md !text-[#092952] !shadow-2xl !border-2 !border-[#092952]/40 !z-20 hover:!bg-[#092952]/90 hover:!text-white transition-all duration-300 !left-4 !-translate-y-1/2 top-1/2 scale-100 hover:scale-110" />
+            <CarouselNext className="!w-14 !h-14 !bg-white/60 !backdrop-blur-md !text-[#092952] !shadow-2xl !border-2 !border-[#092952]/40 !z-20 hover:!bg-[#092952]/90 hover:!text-white transition-all duration-300 !right-4 !-translate-y-1/2 top-1/2 scale-100 hover:scale-110" />
           </Carousel>
         </div>
       </section>
